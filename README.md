@@ -1,7 +1,3 @@
-Here's an updated version of the README with a focus on the webhook aspect:
-
----
-
 # Webhook Implementation with Hexagonal Architecture, Docker, and FastAPI
 
 This project demonstrates a webhook implementation using Hexagonal Architecture, FastAPI, Docker, and Docker Compose. It separates the core logic from infrastructure concerns, making the system more maintainable and scalable. The use of Docker ensures that the application can be easily deployed and managed in different environments.
