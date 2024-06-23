@@ -17,7 +17,7 @@ The project simulates a real-world e-commerce platform where order events (like 
 ## Project Structure
 
 ```
-webhook_project/
+webhook_simulator/
 ├── webhook_service/
 │   ├── app/
 │   │   ├── __init__.py
@@ -62,7 +62,7 @@ Ensure you have the following installed:
 
    ```bash
    git clone https://github.com/PrimeCodeLabs/webhook-simulator.git
-   cd webhook_project
+   cd webhook_simulator
    ```
 
 2. **Build and run the containers**:
@@ -84,7 +84,7 @@ Ensure you have the following installed:
 
 2. **Inspect Container Health Status**:
    ```bash
-   docker inspect --format='{{json .State.Health}}' webhook_project-webhook_service-1 | jq
+   docker inspect --format='{{json .State.Health}}' webhook_simulator-webhook_service-1 | jq
    ```
 
 ## Project Components
