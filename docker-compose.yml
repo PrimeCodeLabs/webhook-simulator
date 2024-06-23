@@ -1,0 +1,49 @@
+version: '3.8'
+
+services:
+  db:
+    image: postgres:13
+    environment:
+      POSTGRES_USER: user
+      POSTGRES_PASSWORD: password
+      POSTGRES_DB: webhook_db
+    ports:
+      - "5432:5432"
+    networks:
+      - webhook_network
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U user -d webhook_db"]
+      interval: 10s
+      retries: 5
+
+  webhook_service:
+    build:
+      context: ./webhook_service
+    env_file:
+      - ./webhook_service/.env
+    depends_on:
+      db:
+        condition: service_healthy
+    ports:
+      - "8000:8000"
+    networks:
+      - webhook_network
+    healthcheck:
+      test: ["CMD-SHELL", "curl -f http://localhost:8000 || exit 1"]
+      interval: 10s
+      retries: 5
+
+  event_simulator:
+    build:
+      context: ./event_simulator
+    env_file:
+      - ./event_simulator/.env
+    depends_on:
+      webhook_service:
+        condition: service_healthy
+    networks:
+      - webhook_network
+
+networks:
+  webhook_network:
+    driver: bridge
